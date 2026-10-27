@@ -32,7 +32,9 @@ export function layout(S: Record<string, any>, o: PageOpts, body: string) {
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071431">
+<meta name="format-detection" content="telephone=no">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="keywords" content="${esc(site.seo_keywords || '')}">
@@ -43,7 +45,7 @@ export function layout(S: Record<string, any>, o: PageOpts, body: string) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" rel="stylesheet">
-<link href="/static/css/site.css?v=3" rel="stylesheet">
+<link href="/static/css/site.css?v=4" rel="stylesheet">
 </head>
 <body class="${o.bodyClass || ''}">
 <div class="space-bg"><div class="meteors">${meteors}</div></div>
@@ -66,8 +68,15 @@ export function layout(S: Record<string, any>, o: PageOpts, body: string) {
 <main id="main">${body}</main>
 ${footer(S)}
 <div class="lightbox" id="lightbox"><button class="lb-close" aria-label="关闭">&times;</button><button class="lb-btn lb-prev"><i class="fa-solid fa-chevron-left"></i></button><img alt=""><button class="lb-btn lb-next"><i class="fa-solid fa-chevron-right"></i></button><div class="lb-cap"></div></div>
+<nav class="mobile-bar" id="mobile-bar" aria-label="快捷入口">
+  <a href="/"><i class="fa-solid fa-house"></i><span>首页</span></a>
+  <a href="/news"><i class="fa-solid fa-newspaper"></i><span>动态</span></a>
+  <a href="/register" class="mb-main"><i class="fa-solid fa-user-plus"></i><span>报名</span></a>
+  <a href="/submit" class="mb-main gold"><i class="fa-solid fa-cloud-arrow-up"></i><span>交作品</span></a>
+  <a href="/query"><i class="fa-solid fa-magnifying-glass"></i><span>查进度</span></a>
+</nav>
 <button class="to-top" id="to-top" aria-label="回到顶部"><i class="fa-solid fa-arrow-up"></i></button>
-<script src="/static/js/site.js?v=3"></script>
+<script src="/static/js/site.js?v=4"></script>
 </body>
 </html>`
 }

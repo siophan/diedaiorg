@@ -49,7 +49,7 @@
   }
   function setActive(k, crumb) {
     $$('#sb-nav a').forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-k') === k) })
-    $('#crumb').textContent = crumb; $('#sidebar').classList.remove('open')
+    $('#crumb').textContent = crumb; window.__sbClose && window.__sbClose()
   }
   function refreshBadges() {
     api('GET', '/api/admin/dashboard').then(function (j) {
@@ -127,10 +127,10 @@
         $('#total').textContent = '共 ' + j.total + ' 条'
         if (!j.data.length) { $('#tbl').innerHTML = '<div class="empty"><i class="fa-regular fa-folder-open" style="font-size:30px"></i><br>暂无数据</div>'; $('#pager').innerHTML = ''; return }
         var cols = t.list.map(function (k) { return t.fields.find(function (f) { return f.k === k }) || { k: k, label: k } })
-        var h = '<table class="tbl"><thead><tr>' + (hasBatch ? '<th style="width:30px"><input type="checkbox" id="chk-all"></th>' : '') + cols.map(function (c) { return '<th>' + esc(c.label) + '</th>' }).join('') + '<th></th></tr></thead><tbody>'
+        var h = '<table class="tbl tbl-cards"><thead><tr>' + (hasBatch ? '<th style="width:30px"><input type="checkbox" id="chk-all"></th>' : '') + cols.map(function (c) { return '<th>' + esc(c.label) + '</th>' }).join('') + '<th></th></tr></thead><tbody>'
         j.data.forEach(function (r) {
-          h += '<tr>' + (hasBatch ? '<td><input type="checkbox" class="chk" value="' + r.id + '"></td>' : '')
-          cols.forEach(function (c) { h += '<td>' + cell(c, r[c.k], table) + '</td>' })
+          h += '<tr>' + (hasBatch ? '<td class="td-chk"><input type="checkbox" class="chk" value="' + r.id + '"></td>' : '')
+          cols.forEach(function (c, ci) { h += '<td data-label="' + esc(c.label) + '"' + (c.t === 'image' ? ' class="td-img"' : ci === 1 || (ci === 0 && c.t !== 'image') ? ' class="td-main"' : '') + '>' + cell(c, r[c.k], table) + '</td>' })
           h += '<td class="acts">' + (table === 'news' ? '<a class="btn btn-ghost btn-sm" target="_blank" href="/news/' + r.id + '"><i class="fa-solid fa-eye"></i></a> ' : '') +
             '<button class="btn btn-ghost btn-sm" data-edit="' + r.id + '"><i class="fa-solid fa-pen"></i> ' + (t.noCreate ? '查看' : '编辑') + '</button> <button class="btn btn-danger btn-sm" data-del="' + r.id + '"><i class="fa-solid fa-trash"></i></button></td></tr>'
         })
@@ -285,7 +285,7 @@
   /* ---------- 媒体选择器 ---------- */
   function pickMedia(cb) {
     var box = document.createElement('div'); box.className = 'modal show'; box.style.zIndex = 150
-    box.innerHTML = '<div class="modal-box"><div class="modal-head"><h3>选择图片</h3><button class="icon-btn" data-x><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="drop" data-drop><i class="fa-solid fa-cloud-arrow-up" style="font-size:24px"></i><br>点击或拖拽图片到这里上传<input type="file" accept="image/*" hidden multiple></div><div class="fld" style="margin-bottom:14px"><label>或使用站内已有图片路径 / 外部图片地址</label><div style="display:flex;gap:8px"><input type="text" placeholder="/static/img/... 或 https://..." data-url><button class="btn btn-gold btn-sm" data-use>使用</button></div></div><div class="media-grid" data-grid><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div>'
+    box.innerHTML = '<div class="modal-box picker"><div class="modal-head"><h3>选择图片</h3><button class="icon-btn" data-x><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body"><div class="drop" data-drop><i class="fa-solid fa-cloud-arrow-up" style="font-size:24px"></i><br>点击或拖拽图片到这里上传<input type="file" accept="image/*" hidden multiple></div><div class="fld" style="margin-bottom:14px"><label>或使用站内已有图片路径 / 外部图片地址</label><div style="display:flex;gap:8px"><input type="text" placeholder="/static/img/... 或 https://..." data-url><button class="btn btn-gold btn-sm" data-use>使用</button></div></div><div class="media-grid" data-grid><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div>'
     document.body.appendChild(box)
     var close = function () { box.remove() }
     var done = function (u) { close(); cb(u) }
@@ -503,7 +503,7 @@
       (isSuper ? '<div class="panel"><div class="panel-head"><h3><i class="fa-solid fa-user-plus"></i> 新增管理员</h3></div><div class="panel-body"><form id="ad-form" class="form-grid"><div class="fld"><label>用户名</label><input type="text" name="username" required></div><div class="fld"><label>显示名称</label><input type="text" name="display_name"></div><div class="fld"><label>初始密码（至少8位）</label><input type="password" name="password" required minlength="8"></div><div class="fld"><label>角色</label><select name="role"><option value="editor">编辑</option><option value="super">超级管理员</option></select></div><div class="full"><button class="btn btn-gold">创建</button></div></form></div></div>' : '') + '</div></div>'
     var load = function () {
       api('GET', '/api/admin/admins').then(function (j) {
-        $('#ad-list').innerHTML = '<table class="tbl"><thead><tr><th>用户名</th><th>名称</th><th>角色</th><th>最近登录</th><th></th></tr></thead><tbody>' + j.data.map(function (a) { return '<tr><td>' + esc(a.username) + '</td><td>' + esc(a.display_name) + '</td><td><span class="pill ' + (a.role === 'super' ? 'yes' : '') + '">' + (a.role === 'super' ? '超级管理员' : '编辑') + '</span></td><td style="color:#97a0b8">' + esc((a.last_login || '—').slice(0, 16)) + '</td><td class="acts">' + (isSuper && a.id !== window.__ADMIN__.id ? '<button class="btn btn-danger btn-sm" data-adel="' + a.id + '"><i class="fa-solid fa-trash"></i></button>' : '') + '</td></tr>' }).join('') + '</tbody></table>'
+        $('#ad-list').innerHTML = '<table class="tbl tbl-cards"><thead><tr><th>用户名</th><th>名称</th><th>角色</th><th>最近登录</th><th></th></tr></thead><tbody>' + j.data.map(function (a) { return '<tr><td>' + esc(a.username) + '</td><td>' + esc(a.display_name) + '</td><td><span class="pill ' + (a.role === 'super' ? 'yes' : '') + '">' + (a.role === 'super' ? '超级管理员' : '编辑') + '</span></td><td style="color:#97a0b8">' + esc((a.last_login || '—').slice(0, 16)) + '</td><td class="acts">' + (isSuper && a.id !== window.__ADMIN__.id ? '<button class="btn btn-danger btn-sm" data-adel="' + a.id + '"><i class="fa-solid fa-trash"></i></button>' : '') + '</td></tr>' }).join('') + '</tbody></table>'
       })
     }
     load()
@@ -514,7 +514,11 @@
 
   /* ---------- 启动 ---------- */
   function loadEditions() { return api('GET', '/api/admin/editions-options').then(function (j) { EDITIONS = j.data || [] }) }
-  $('#sb-toggle').onclick = function () { $('#sidebar').classList.toggle('open') }
+  var mask = document.createElement('div'); mask.className = 'sb-mask'; document.body.appendChild(mask)
+  var sbSet = function (o) { $('#sidebar').classList.toggle('open', o); mask.classList.toggle('show', o) }
+  $('#sb-toggle').onclick = function () { sbSet(!$('#sidebar').classList.contains('open')) }
+  mask.onclick = function () { sbSet(false) }
+  window.__sbClose = function () { sbSet(false) }
   $('#logout-btn').onclick = function () { api('POST', '/api/auth/logout').then(function () { location.href = '/admin/login' }) }
   Promise.all([api('GET', '/api/admin/schema'), loadEditions()]).then(function (r) {
     SCHEMA = r[0]; renderNav(); refreshBadges(); route()

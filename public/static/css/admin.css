@@ -182,3 +182,88 @@ table.tbl{width:100%;border-collapse:collapse}
   .me small{display:none}
   .toolbar input{width:150px}
 }
+
+/* ================= 后台移动端适配 ================= */
+.form-grid>*,.two-col>*,.kpis>*{min-width:0}
+.sb-mask{display:none}
+@media (max-width:860px){
+  .sb-mask{display:block;position:fixed;inset:0;background:rgba(4,11,29,.5);z-index:25;opacity:0;pointer-events:none;transition:.25s}
+  .sb-mask.show{opacity:1;pointer-events:auto}
+  .sidebar{width:248px}
+  .topbar{height:54px;padding:0 10px;gap:6px}
+  .crumb{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+  .topbar-right{gap:6px;margin-left:0}
+  .me-name{display:none}
+  .hide-sm{display:none}
+  .content{padding:12px}
+  .panel{margin-bottom:12px}
+  .panel-head{padding:12px 14px}
+  .panel-body{padding:14px}
+  .welcome{flex-wrap:wrap;padding:18px;gap:12px}
+  .welcome img{width:48px}
+  .welcome h2{font-size:18px}
+  .welcome .acts{margin-left:0;width:100%}
+  .welcome .acts .btn{flex:1;justify-content:center}
+  .kpis{gap:10px}
+  .kpi{padding:12px;gap:10px}
+  .kpi .ic{width:38px;height:38px;font-size:16px;border-radius:10px}
+  .kpi b{font-size:19px}
+  .kpi span{font-size:11.5px}
+  .kpi em{display:block;margin:0}
+
+  /* 工具栏 */
+  .toolbar{width:100%;margin-left:0!important}
+  .toolbar input{flex:1 1 100%;width:auto}
+  .toolbar select{flex:1 1 calc(50% - 5px);min-width:0}
+  .toolbar .btn{flex:1 1 auto;justify-content:center}
+  .toolbar input,.toolbar select{font-size:16px;padding:8px 10px}
+
+  /* 表格 → 卡片 */
+  .tbl-cards thead{display:none}
+  .tbl-cards,.tbl-cards tbody{display:block}
+  .tbl-cards tr{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;padding:12px 14px;border-bottom:1px solid #eef0f6;position:relative}
+  .tbl-cards tr:hover td{background:none}
+  .tbl-cards td{display:flex;gap:8px;padding:2px 0;border:0;max-width:none;grid-column:2;font-size:13px;align-items:center;min-width:0}
+  .tbl-cards td::before{content:attr(data-label);color:#97a0b8;font-size:12px;flex:0 0 64px}
+  .tbl-cards td.td-img{grid-column:1;grid-row:1 / span 6;align-items:flex-start}
+  .tbl-cards td.td-img::before,.tbl-cards td.td-main::before,.tbl-cards td.td-chk::before,.tbl-cards td.acts::before{display:none}
+  .tbl-cards td.td-img .thumb{width:72px;height:54px}
+  .tbl-cards td.td-main{font-weight:700;font-size:14px}
+  .tbl-cards td.td-chk{position:absolute;top:12px;right:12px;grid-column:auto}
+  .tbl-cards td.acts{justify-content:flex-start;margin-top:6px;gap:6px;grid-column:1 / -1}
+  .tbl-cards td.acts .btn{flex:1;justify-content:center}
+  .tbl-cards td .ellipsis{-webkit-line-clamp:2}
+  .tbl-cards td>*{min-width:0}
+  .tbl:not(.tbl-cards) td{padding:8px;font-size:12.5px}
+  .batch-bar{flex-wrap:wrap;padding:10px 14px}
+  .pager{justify-content:center;flex-wrap:wrap;padding:12px}
+
+  /* 弹窗 → 全屏 */
+  .modal{padding:0;align-items:stretch}
+  .modal-box,.modal-box.sm{width:100%;border-radius:0;min-height:100%;display:flex;flex-direction:column}
+  .modal-head{position:sticky;top:0;background:#fff;z-index:2;padding:12px 14px}
+  .modal-body{flex:1;max-height:none;padding:14px}
+  .modal-foot{position:sticky;bottom:0;background:#fff;padding:10px 14px calc(10px + env(safe-area-inset-bottom));flex-wrap:wrap}
+  .modal-foot .btn{flex:1;justify-content:center}
+  .fld input[type=text],.fld input[type=number],.fld input[type=date],.fld input[type=url],.fld input[type=password],.fld select,.fld textarea{font-size:16px}
+  .img-field{flex-direction:column}
+  .img-field .preview{width:100%;height:150px}
+  .img-field .ctrl{width:100%}
+  .img-field .ctrl .row{flex-wrap:wrap}
+  .img-field .ctrl .row .btn{flex:1;justify-content:center}
+  .rte-bar{position:sticky;top:0;z-index:1}
+  .rte-bar button{width:36px;height:34px}
+  .rte-area{min-height:260px;font-size:16px}
+
+  /* 站点设置 */
+  .set-tabs{flex-wrap:nowrap;overflow-x:auto;margin:0 -14px 14px;padding:0 14px 4px;-webkit-overflow-scrolling:touch}
+  .set-tabs button{flex:0 0 auto}
+  .json-node{padding:10px}
+  .arr-item{flex-wrap:wrap}
+  .arr-item>.grow{flex:1 1 100%}
+  .detail-grid{grid-template-columns:1fr}
+  .media-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .media-item .del{display:block}
+  .login-card{padding:30px 22px}
+  .login-card input{font-size:16px}
+}

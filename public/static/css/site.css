@@ -382,3 +382,173 @@ img{max-width:100%;display:block}
   .hero-year::before,.hero-year::after{width:40px}
   .countdown div{min-width:62px}
 }
+
+/* =========================================================
+   移动端适配增强
+   ========================================================= */
+.highlight-frame{display:grid;grid-template-columns:minmax(200px,340px) 1fr;gap:40px;align-items:center}
+.highlight-img{border-radius:8px;mix-blend-mode:screen}
+.highlight-list{font-size:17px;letter-spacing:1px}
+.edition-intro{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.edition-intro>img{border-radius:8px;width:100%;aspect-ratio:16/10;object-fit:cover}
+.org-row{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed rgba(227,194,125,.16)}
+.grid>*,.form-grid>*,.about-grid>*,.edition-intro>*,.highlight-frame>*{min-width:0}
+.mobile-bar{display:none}
+img{height:auto}
+
+@media (max-width:1024px){
+  .main-nav{max-height:calc(100vh - 76px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+  body.nav-open{overflow:hidden}
+}
+
+@media (max-width:760px){
+  body{font-size:14.5px;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  .container{padding:0 16px}
+  .nav-wrap{height:62px}
+  .main-nav{top:62px;max-height:calc(100vh - 62px)}
+  .brand img{width:34px;height:34px}
+  .brand .b-name{font-size:18px;letter-spacing:3px}
+  .brand .b-sub{font-size:8.5px;letter-spacing:1.6px}
+  .menu-btn{width:40px;height:40px}
+
+  /* 底部快捷栏 */
+  .mobile-bar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:45;
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:rgba(4,11,29,.96);backdrop-filter:blur(12px);border-top:1px solid rgba(227,194,125,.25)}
+  .mobile-bar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--muted);padding:4px 0;border-radius:10px}
+  .mobile-bar a i{font-size:17px}
+  .mobile-bar a.mb-main{color:var(--gold-2)}
+  .mobile-bar a.mb-main.gold{background:var(--gold-grad);color:#2a1a02;font-weight:600;margin:0 2px}
+  .mobile-bar a:active{transform:scale(.95)}
+  .to-top{bottom:calc(76px + env(safe-area-inset-bottom));right:14px;width:40px;height:40px}
+
+  /* Hero */
+  .hero{min-height:auto;padding:96px 0 60px}
+  .hero-logo{width:min(260px,70vw)}
+  .hero-year{font-size:22px;letter-spacing:6px;margin-top:10px}
+  .hero-tag{letter-spacing:.25em;font-size:18px}
+  .hero-intro{font-size:14px;margin-bottom:24px}
+  .hero-notice{font-size:12px;padding:6px 14px;margin-bottom:18px;max-width:100%}
+  .hero-actions{flex-direction:column;align-items:stretch;max-width:320px;margin:0 auto}
+  .hero-actions .btn{width:100%}
+  .btn-lg{padding:13px 24px;font-size:15px}
+  .countdown{gap:8px;margin-top:24px}
+  .countdown div{min-width:0;flex:1;max-width:72px;padding:8px 4px}
+  .countdown b{font-size:22px}
+  .scroll-hint{display:none}
+
+  /* Section */
+  .section{padding:56px 0}
+  .sec-head{margin-bottom:32px}
+  .sec-head h2{letter-spacing:.2em;font-size:24px}
+  .sec-head .en{letter-spacing:.25em;font-size:10.5px}
+  .sec-head p{font-size:13.5px;margin-top:12px}
+  .page-hero{padding:104px 0 44px}
+  .page-hero h1{letter-spacing:.18em;font-size:26px}
+  .page-hero .en{letter-spacing:.25em;font-size:10.5px}
+  .page-hero p{font-size:13.5px}
+  .gold-frame{padding:20px 16px}
+  .card:hover,.entry:hover{transform:none}
+
+  /* 数据 */
+  .stat{padding:18px 8px}
+  .stat .num{font-size:19px}
+  .stat .num small{font-size:12px}
+  .stat .lbl{letter-spacing:1px;font-size:12px}
+  .stat:nth-child(n+3){border-top:1px solid var(--gold-line)}
+
+  /* 关于/亮点 */
+  .about-grid{gap:28px}
+  .lead{font-size:16.5px}
+  .pos-row{gap:10px;margin-top:20px}
+  .highlight-frame{grid-template-columns:1fr;gap:16px}
+  .highlight-img{max-width:200px;margin:0 auto}
+  .highlight-list{font-size:15px;letter-spacing:0}
+
+  /* 入口卡 */
+  .entry-grid{gap:14px}
+  .entry{padding:24px 20px;display:grid;grid-template-columns:52px 1fr;column-gap:16px;align-items:start}
+  .entry .ico{width:52px;height:52px;font-size:22px;margin:0;grid-row:span 3}
+  .entry h3{font-size:19px;letter-spacing:2px;margin-bottom:4px}
+  .entry p{font-size:13px;margin-bottom:10px}
+  .entry .bg-star{width:110px;right:-20px;bottom:-20px}
+
+  /* 作品/新闻/人物 */
+  .work .info{padding:34px 10px 10px}
+  .work .info h4{font-size:14px}
+  .work .award-badge{font-size:10px;padding:2px 7px;max-width:calc(100% - 16px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .news-feature .thumb{min-height:200px}
+  .news-feature h3{font-size:19px}
+  .news-card .body{padding:16px}
+  .person{padding:22px 16px}
+  .person .avatar{width:104px;height:104px}
+  .person h3{font-size:19px}
+  .support-card .thumb{height:150px}
+  .support-card .body{padding:4px 18px 20px}
+  .eco-item{padding:16px 8px}
+  .eco-item span{font-size:13px;letter-spacing:1px}
+
+  /* 院校 Logo */
+  .logo-wall{gap:12px}
+  .logo-tile{height:84px;padding:10px 12px}
+  .logo-tile img{max-height:60px}
+  .marquee .logo-tile{width:150px}
+  .marquee-track{gap:12px;animation-duration:28s}
+
+  /* 图库 */
+  .masonry{columns:2;column-gap:10px}
+  .masonry a{margin-bottom:10px}
+  .masonry .cap{opacity:1;font-size:11px;padding:18px 8px 6px}
+  .lightbox{padding:12px}
+  .lightbox img{max-width:100%;max-height:76vh}
+  .lightbox .lb-btn{width:40px;height:40px;top:auto;bottom:60px;transform:none}
+  .lightbox .lb-prev{left:calc(50% - 56px)}.lightbox .lb-next{right:calc(50% - 56px)}
+  .lightbox .lb-cap{bottom:18px;padding:0 16px;font-size:13px}
+
+  /* 届次/规则/组织 */
+  .edition-card .thumb{min-height:190px}
+  .edition-card .body{padding:20px}
+  .edition-card h3{font-size:21px}
+  .edition-intro{grid-template-columns:1fr;gap:20px}
+  .org-row{grid-template-columns:1fr;gap:4px}
+  .rule-sec h3{font-size:17px}
+  .award-cols{gap:0}
+
+  /* 筛选横向滑动 */
+  .filters{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -16px 24px;padding:0 16px 4px;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .filters a{flex:0 0 auto;padding:7px 16px;font-size:13px}
+  .pager a,.pager span{min-width:36px;height:36px}
+
+  /* 表单：iOS 防缩放 */
+  .field input,.field select,.field textarea{font-size:16px;padding:12px}
+  .form-section-title{font-size:16px}
+  .form-grid .btn-lg{width:100%}
+  .success-box{padding:32px 10px}
+  .success-box .code{font-size:19px;letter-spacing:1px;padding:10px 16px;word-break:break-all}
+
+  /* 文章 */
+  .article h1{font-size:21px}
+  .prose{font-size:15.5px;line-height:1.9}
+  .prose figure{margin:16px -4px}
+  .article .meta{gap:10px;font-size:12.5px}
+
+  /* 页尾 */
+  .cta-band{padding:64px 0}
+  .cta-band h2{letter-spacing:.1em;font-size:22px}
+  .cta-band p{font-size:13.5px}
+  .site-footer{padding:44px 0 24px}
+  .footer-grid{gap:26px}
+  .footer-bottom{flex-direction:column;text-align:center;margin-top:28px}
+}
+@media (max-width:760px) and (min-width:400px){
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-grid>div:first-child,.footer-grid>div:last-child{grid-column:1/-1}
+}
+@media (max-width:360px){
+  .works-grid{gap:10px}
+  .stat .num{font-size:16px}
+  .brand .b-sub{display:none}
+}
+@media (hover:none){
+  .work img,.news-card .thumb img,.masonry img{transition:none}
+}

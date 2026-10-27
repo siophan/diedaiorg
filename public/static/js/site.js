@@ -12,7 +12,21 @@
 
   // 移动菜单
   var mb = document.getElementById('menu-btn'), nav = document.getElementById('main-nav')
-  mb && mb.addEventListener('click', function () { nav.classList.toggle('open') })
+  function setNav(open) {
+    nav.classList.toggle('open', open); document.body.classList.toggle('nav-open', open)
+    mb.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>'
+  }
+  mb && mb.addEventListener('click', function () { setNav(!nav.classList.contains('open')) })
+  nav && nav.addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false) })
+  window.addEventListener('resize', function () { if (window.innerWidth > 1024 && nav.classList.contains('open')) setNav(false) })
+  // 移动端灯箱滑动切换
+  var tx = 0
+  document.addEventListener('touchstart', function (e) { if (e.target.closest('#lightbox')) tx = e.touches[0].clientX }, { passive: true })
+  document.addEventListener('touchend', function (e) {
+    if (!e.target.closest('#lightbox') || !group.length) return
+    var dx = e.changedTouches[0].clientX - tx
+    if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1))
+  }, { passive: true })
 
   // 进入视口动画
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {

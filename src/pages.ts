@@ -98,9 +98,9 @@ export async function homePage(db: D1Database, St: S) {
 <section class="section" id="highlight-section">
   <div class="container">
     ${secHead('活动亮点', 'Activity Highlights')}
-    <div class="gold-frame reveal" style="display:grid;grid-template-columns:minmax(200px,340px) 1fr;gap:40px;align-items:center">
-      <img src="/static/img/pdf/trophy.jpg" alt="奖杯" style="border-radius:8px;mix-blend-mode:screen">
-      <ul class="diamond-list" style="font-size:17px;letter-spacing:1px">${(St.highlights || []).map((x: string) => `<li>${esc(x)}</li>`).join('')}</ul>
+    <div class="gold-frame reveal highlight-frame">
+      <img src="/static/img/pdf/trophy.jpg" alt="奖杯" class="highlight-img">
+      <ul class="diamond-list highlight-list">${(St.highlights || []).map((x: string) => `<li>${esc(x)}</li>`).join('')}</ul>
     </div>
   </div>
 </section>
@@ -132,7 +132,7 @@ export async function homePage(db: D1Database, St: S) {
 <section class="section" id="editions-section">
   <div class="container">
     ${secHead('历届盛典', 'Previous Ceremonies')}
-    <div class="grid g4">${(editions.results || []).map((e: any) => `<a class="card reveal" href="/editions/${e.year}" style="display:block"><div style="aspect-ratio:16/10;overflow:hidden;position:relative"><img src="${esc(img(e.cover))}" alt="" style="width:100%;height:100%;object-fit:cover"><span class="tag" style="position:absolute;left:12px;top:12px;background:rgba(4,11,29,.75);font-size:15px;font-family:var(--serif)">${e.year}</span></div><div style="padding:18px 20px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h3 class="serif" style="margin:0;font-size:18px">${esc(e.title)}</h3>${statusPill(e.status)}</div><p style="color:var(--muted);font-size:13px;margin:8px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${esc(e.summary || '')}</p></div></a>`).join('')}</div>
+    <div class="grid g4">${(editions.results || []).map((e: any) => `<a class="card reveal" href="/editions/${e.year}" style="display:block"><div style="aspect-ratio:16/10;overflow:hidden;position:relative"><img src="${esc(img(e.cover))}" alt="" style="width:100%;height:100%;object-fit:cover"><span class="tag" style="position:absolute;left:12px;top:12px;background:rgba(4,11,29,.75);font-size:15px;font-family:var(--serif)">${e.year}</span></div><div style="padding:18px 20px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 class="serif" style="margin:0;font-size:18px">${esc(e.title)}</h3>${statusPill(e.status)}</div><p style="color:var(--muted);font-size:13px;margin:8px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${esc(e.summary || '')}</p></div></a>`).join('')}</div>
   </div>
 </section>
 
@@ -174,7 +174,7 @@ export async function aboutPage(db: D1Database, St: S) {
 <section class="section"><div class="container">${secHead('数据亮点', 'Key Figures')}<div class="stats reveal">${(St.stats || []).map((s: any) => `<div class="stat"><div class="num gold-text"><span data-count="${esc(s.num)}">${esc(s.num)}</span><small>${esc(s.unit)}</small></div><div class="lbl">${esc(s.label)}</div></div>`).join('')}</div></div></section>
 <section class="section alt"><div class="container">${secHead(eco.title || '影视产业生态体系', 'Industry Ecosystem', eco.text)}<div class="eco-ring">${(eco.items || []).map((e: any) => `<div class="eco-item reveal"><i class="fa-solid ${esc(e.icon)}"></i><span>${esc(e.name)}</span></div>`).join('')}</div></div></section>
 <section class="section"><div class="container">${secHead('发展历程', 'Milestones')}<div class="timeline">${(St.timeline || []).map((t: any) => `<div class="tl-item reveal"><div class="tl-date gold-text">${esc(t.date)}</div><h4>${esc(t.title)}</h4><p>${esc(t.text)}</p></div>`).join('')}</div></div></section>
-<section class="section alt"><div class="container">${secHead('组织架构', 'Organization')}<div class="gold-frame reveal" style="max-width:1080px;margin:0 auto">${(St.organizers || []).map((o: any) => `<div style="display:grid;grid-template-columns:110px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed rgba(227,194,125,.16)"><b class="gold-text serif" style="letter-spacing:4px">${esc(o.role)}</b><span style="color:#d5def2">${esc(o.names)}</span></div>`).join('')}</div></div></section>
+<section class="section alt"><div class="container">${secHead('组织架构', 'Organization')}<div class="gold-frame reveal" style="max-width:1080px;margin:0 auto">${(St.organizers || []).map((o: any) => `<div class="org-row"><b class="gold-text serif" style="letter-spacing:4px">${esc(o.role)}</b><span style="color:#d5def2">${esc(o.names)}</span></div>`).join('')}</div></div></section>
 <section class="section"><div class="container">${secHead(St.promotion?.title || '全媒体传播', 'Media Matrix', St.promotion?.text)}
   <div class="grid g5" style="margin-bottom:30px">${(St.promotion?.channels || []).map((c: string) => `<div class="card reveal" style="padding:22px;text-align:center"><i class="fa-solid fa-tower-broadcast" style="color:var(--gold);font-size:22px"></i><div style="margin-top:10px;font-size:14px">${esc(c)}</div></div>`).join('')}</div>
   <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center" class="reveal">${(St.promotion?.media || []).map((m: string) => `<span class="tag blue" style="font-size:13px;padding:5px 14px">${esc(m)}</span>`).join('')}</div>
@@ -246,7 +246,7 @@ export async function editionDetailPage(db: D1Database, St: S, year: number) {
   ])
   const body = `${pageHero(e.title, `${e.year} · ITERATION GRAND CEREMONY`, e.theme || '', `<a href="/editions">历届盛典</a> / ${e.year}`)}
 <section class="section" style="padding-top:40px"><div class="container">
-  <div class="gold-frame reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start" id="edition-intro">
+  <div class="gold-frame reveal edition-intro" id="edition-intro">
     <img src="${esc(img(e.cover))}" alt="" style="border-radius:8px;width:100%;aspect-ratio:16/10;object-fit:cover">
     <div>${statusPill(e.status)}<div style="color:var(--muted);margin:14px 0">${e.event_date ? `<div><i class="fa-regular fa-calendar" style="color:var(--gold);width:20px"></i> ${esc(e.event_date)}</div>` : ''}${e.venue ? `<div><i class="fa-solid fa-location-dot" style="color:var(--gold);width:20px"></i> ${esc(e.venue)}</div>` : ''}${e.submission_deadline && e.submission_open ? `<div><i class="fa-solid fa-hourglass-half" style="color:var(--gold);width:20px"></i> 作品提交截止：${esc(e.submission_deadline)}</div>` : ''}</div>
     <div class="prose" style="font-size:15px">${e.content || `<p>${esc(e.summary || '')}</p>`}</div>

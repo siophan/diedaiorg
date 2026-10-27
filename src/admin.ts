@@ -1,9 +1,9 @@
 import { esc } from './lib'
 
-const head = (title: string) => `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+const head = (title: string) => `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071431">
 <title>${esc(title)}</title><meta name="robots" content="noindex,nofollow"><link rel="icon" href="/static/img/brand/favicon.png">
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" rel="stylesheet">
-<link href="/static/css/admin.css?v=3" rel="stylesheet"></head>`
+<link href="/static/css/admin.css?v=4" rel="stylesheet"></head>`
 
 export function loginPage(S: Record<string, any>) {
   return `${head('登录 · ' + (S.site?.name || '迭代盛典') + ' 管理后台')}
@@ -40,8 +40,8 @@ export function adminShell(S: Record<string, any>, admin: any) {
     <button class="icon-btn" id="sb-toggle"><i class="fa-solid fa-bars"></i></button>
     <div class="crumb" id="crumb">仪表盘</div>
     <div class="topbar-right">
-      <span class="me"><i class="fa-solid fa-circle-user"></i> ${esc(admin.display_name || admin.username)} <small>${admin.role === 'super' ? '超级管理员' : '编辑'}</small></span>
-      <button class="btn btn-ghost btn-sm" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> 退出</button>
+      <span class="me"><i class="fa-solid fa-circle-user"></i> <span class="me-name">${esc(admin.display_name || admin.username)}</span> <small>${admin.role === 'super' ? '超级管理员' : '编辑'}</small></span>
+      <button class="btn btn-ghost btn-sm" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i><span class="hide-sm"> 退出</span></button>
     </div>
   </header>
   <section class="content" id="view"><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i></div></section>
@@ -49,6 +49,6 @@ export function adminShell(S: Record<string, any>, admin: any) {
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h3 id="modal-title"></h3><button class="icon-btn" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modal-body" id="modal-body"></div><div class="modal-foot" id="modal-foot"></div></div></div>
 <div class="toast" id="toast"></div>
 <script>window.__ADMIN__=${JSON.stringify({ id: admin.id, username: admin.username, role: admin.role })}</script>
-<script src="/static/js/admin.js?v=3"></script>
+<script src="/static/js/admin.js?v=4"></script>
 </body></html>`
 }
