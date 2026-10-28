@@ -18,7 +18,7 @@
   }
   mb && mb.addEventListener('click', function () { setNav(!nav.classList.contains('open')) })
   nav && nav.addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false) })
-  window.addEventListener('resize', function () { if (window.innerWidth > 1024 && nav.classList.contains('open')) setNav(false) })
+  window.addEventListener('resize', function () { if (window.innerWidth > 1200 && nav.classList.contains('open')) setNav(false) })
   // 移动端灯箱滑动切换
   var tx = 0
   document.addEventListener('touchstart', function (e) { if (e.target.closest('#lightbox')) tx = e.touches[0].clientX }, { passive: true })

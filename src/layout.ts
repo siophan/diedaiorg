@@ -45,7 +45,7 @@ export function layout(S: Record<string, any>, o: PageOpts, body: string) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" rel="stylesheet">
-<link href="/static/css/site.css?v=4" rel="stylesheet">
+<link href="/static/css/site.css?v=5" rel="stylesheet">
 </head>
 <body class="${o.bodyClass || ''}">
 <div class="space-bg"><div class="meteors">${meteors}</div></div>
@@ -76,7 +76,7 @@ ${footer(S)}
   <a href="/query"><i class="fa-solid fa-magnifying-glass"></i><span>查进度</span></a>
 </nav>
 <button class="to-top" id="to-top" aria-label="回到顶部"><i class="fa-solid fa-arrow-up"></i></button>
-<script src="/static/js/site.js?v=4"></script>
+<script src="/static/js/site.js?v=5"></script>
 </body>
 </html>`
 }
